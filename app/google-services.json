@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319400946883",
+    "project_id": "iotkeyless",
+    "storage_bucket": "iotkeyless.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319400946883:android:174bbf573514fd4cf9c676",
+        "android_client_info": {
+          "package_name": "com.example.iotkeyless"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAscWKfMvRuvgq-K8gu526odqXqEG_ig1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

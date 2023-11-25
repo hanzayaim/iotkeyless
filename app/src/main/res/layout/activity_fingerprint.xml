@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FingerprintActivity"
+    >
+
+    <LinearLayout
+        android:id="@+id/llNavbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:background="@color/blue"
+        >
+
+        <LinearLayout
+            android:id="@+id/llHomeAndWelcomeUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tvHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FINGERPRINT"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/tvWelcomeUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manage Fingerprint"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_profile_white"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llTabMenu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="5dp"
+        android:layout_below="@+id/llNavbar"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/ivBtnDevice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_device_grey"
+            />
+
+        <ImageView
+            android:id="@+id/ivBtnFingerprint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_fingerprint_orange"
+            />
+
+        <ImageView
+            android:id="@+id/ivBtnVehicle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_vehicle_grey"
+            />
+
+        <ImageView
+            android:id="@+id/ivBtnCamera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_capture_grey"
+            />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTabMenu"
+        />
+
+    <Button
+        android:id="@+id/btnClearAll"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/llBottomBar"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/red"
+        android:text="CLEAR ALL" />
+
+    <LinearLayout
+        android:id="@+id/llBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="@color/blue"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/ivBtnHome"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_home_orange"
+            />
+
+        <ImageView
+            android:id="@+id/ivBtnHistory"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="60dp"
+            android:src="@drawable/ic_history_white"
+            />
+
+        <ImageView
+            android:id="@+id/ivBtnSetting"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="60dp"
+            android:src="@drawable/ic_setting_white"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

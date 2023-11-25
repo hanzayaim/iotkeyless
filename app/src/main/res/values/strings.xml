@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">iotkeyless</string>
+
+    <string name="text_view_login">LOGIN</string>
+    <string name="edit_text_email">Email</string>
+    <string name="edit_text_password">Password</string>
+    <string name="text_view_forgot_password">Forgot password</string>
+    <string name="button_text_login">LOGIN</string>
+    <string name="text_view_go_to_register">Don\'t have an account? Register</string>
+
+    <string name="text_view_register">REGISTER</string>
+    <string name="edit_text_name">Name</string>
+    <string name="edit_text_confirmation_password">Confirmation Password</string>
+    <string name="button_text_register">REGISTER</string>
+    <string name="text_view_go_to_login">Already have an account? Login</string>
+</resources>
