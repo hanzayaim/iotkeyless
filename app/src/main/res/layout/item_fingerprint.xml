@@ -31,7 +31,7 @@
             />
 
         <TextView
-            android:id="@+id/tvFingerprintName"
+            android:id="@+id/tvNameFingerprint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fingerprint Name"

@@ -13,4 +13,6 @@
     <string name="edit_text_confirmation_password">Confirmation Password</string>
     <string name="button_text_register">REGISTER</string>
     <string name="text_view_go_to_login">Already have an account? Login</string>
+
+    <string name="google_map_api_key">AIzaSyDd7RPIjVqWWjeozQFxo-jquXOS2R1IGHM</string>
 </resources>
