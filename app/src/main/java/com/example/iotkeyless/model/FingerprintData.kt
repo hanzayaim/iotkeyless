@@ -1,12 +1,14 @@
 package com.example.iotkeyless.model
 
 class FingerprintData {
+    var fingerprintCheck: Boolean? = null
     var fingerprintId: Int? = null
-    var fingerprintName: String? = null
+    var fingerprintStatus: Boolean? = null
 
-    constructor(fingerprintId: Int?, fingerprintName: String?) {
+    constructor(fingerprintCheck: Boolean?, fingerprintId: Int?, fingerprintStatus: Boolean?) {
+        this.fingerprintCheck = fingerprintCheck
         this.fingerprintId = fingerprintId
-        this.fingerprintName = fingerprintName
+        this.fingerprintStatus = fingerprintStatus
     }
 
     constructor() {}

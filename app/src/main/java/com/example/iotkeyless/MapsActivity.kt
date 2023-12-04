@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.iotkeyless.databinding.ActivityVehicleBinding
+import com.example.iotkeyless.databinding.ActivityMapsBinding
 import com.example.iotkeyless.model.LocationData
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,14 +18,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class VehicleActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityVehicleBinding
+class MapsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMapsBinding
     private lateinit var mapView: MapView
     var databaseReference: DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityVehicleBinding.inflate(layoutInflater)
+        binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         databaseReference = FirebaseDatabase.getInstance("https://iotkeyless-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Location")
@@ -36,9 +36,8 @@ class VehicleActivity : AppCompatActivity() {
             onMapReady(googleMap)
         }
 
-        topBarNavigate()
-        tabMenuNavigate()
-        bottomBarNavigate()
+        navbarNavigateTo()
+        botbarNavigateTo()
     }
 
     private fun onMapReady(googleMap: GoogleMap) {
@@ -81,11 +80,12 @@ class VehicleActivity : AppCompatActivity() {
                 for (locationSnapshoot in dataSnapshot.children) {
                     val locationData = locationSnapshoot.getValue(LocationData::class.java)
                     locationData?.let {
-
-
                         val lat = it.lat ?: 0.0
                         val long = it.long ?: 0.0
                         val location = LatLng(lat, long)
+
+                        binding.latContentTv.text = lat.toString()
+                        binding.longContentTv.text = long.toString()
 
                         val markerOptions = MarkerOptions().position(location).title("My Vehicle").snippet("My vehicle is here!")
                         googleMap.addMarker(markerOptions)
@@ -105,29 +105,23 @@ class VehicleActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun topBarNavigate() {
-        binding.ivProfile.setOnClickListener {
+    private fun navbarNavigateTo() {
+        binding.hamburgerIv.setOnClickListener {
+            navigateTo(MapsActivity::class.java)
+        }
+    }
+
+    private fun botbarNavigateTo() {
+        binding.homeBtn.setOnClickListener {
+            navigateTo(HomeActivity::class.java)
+        }
+
+        binding.mapsBtn.setOnClickListener {
+            navigateTo(MapsActivity::class.java)
+        }
+
+        binding.settingBtn.setOnClickListener {
             navigateTo(ProfileActivity::class.java)
-        }
-    }
-
-    private fun tabMenuNavigate() {
-        binding.ivBtnDevice.setOnClickListener {
-            navigateTo(MainActivity::class.java)
-        }
-
-        binding.ivBtnFingerprint.setOnClickListener {
-            navigateTo(FingerprintActivity::class.java)
-        }
-
-        binding.ivBtnVehicle.setOnClickListener {
-            navigateTo(VehicleActivity::class.java)
-        }
-    }
-
-    private fun bottomBarNavigate() {
-        binding.ivBtnHome.setOnClickListener {
-            navigateTo(MainActivity::class.java)
         }
     }
 }

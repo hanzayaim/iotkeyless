@@ -1,18 +1,34 @@
 <resources>
     <string name="app_name">iotkeyless</string>
 
-    <string name="text_view_login">LOGIN</string>
+    <string name="text_view_login">Login</string>
     <string name="edit_text_email">Email</string>
     <string name="edit_text_password">Password</string>
     <string name="text_view_forgot_password">Forgot password</string>
-    <string name="button_text_login">LOGIN</string>
+    <string name="button_text_login">Login</string>
     <string name="text_view_go_to_register">Don\'t have an account? Register</string>
 
-    <string name="text_view_register">REGISTER</string>
+    <string name="text_view_register">Register</string>
     <string name="edit_text_name">Name</string>
     <string name="edit_text_confirmation_password">Confirmation Password</string>
-    <string name="button_text_register">REGISTER</string>
+    <string name="button_text_register">Register</string>
     <string name="text_view_go_to_login">Already have an account? Login</string>
+
+    <string name="text_home">Home</string>
+    <string name="text_greeting">Welcome, [User]</string>
+    <string name="text_vehicle_name">[Vehicle name]</string>
+    <string name="text_vehicle_id">Vehicle ID</string>
+    <string name="text_vehicle_id_value">12345</string>
+    <string name="text_vehicle_status">Vehicle Status</string>
+    <string name="text_vehicle_status_value">[On/Off]</string>
+    <string name="text_set_vehicle_status">Turn [On/Off]</string>
+
+    <string name="text_location">Location</string>
+    <string name="text_greeting_location">Your vehicle location</string>
+    <string name="text_latitude_name">Latitude:</string>
+    <string name="text_latitude_value">12345</string>
+    <string name="text_longtitude_name">Longtitude:</string>
+    <string name="text_longtitude_value">-12345</string>
 
     <string name="google_map_api_key">AIzaSyDd7RPIjVqWWjeozQFxo-jquXOS2R1IGHM</string>
 </resources>

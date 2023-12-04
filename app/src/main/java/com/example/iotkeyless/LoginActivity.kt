@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                navigateTo(MainActivity::class.java)
+                navigateTo(HomeActivity::class.java)
             }
             else {
                 Log.e("LoginActivity", "Login failed", task.exception)
