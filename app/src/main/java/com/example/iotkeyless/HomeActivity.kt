@@ -1,12 +1,17 @@
 package com.example.iotkeyless
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.iotkeyless.databinding.ActivityHomeBinding
 import com.example.iotkeyless.model.FingerprintData
-import com.example.iotkeyless.model.LocationData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var firebaseAuth: FirebaseAuth
     var databaseReference: DatabaseReference? = null
+    private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +53,8 @@ class HomeActivity : AppCompatActivity() {
         } else {
             binding.homeGreetingTv.setText("Welcome, Guest")
         }
+
+        binding.setVehicleNameBtn.setText("FreeGo 125")
     }
 
     private fun fetchDataFromFirebase() {
@@ -56,12 +64,28 @@ class HomeActivity : AppCompatActivity() {
                     val fingerprintData = fingerprintSnapshot.getValue(FingerprintData::class.java)
 
                     fingerprintData?.let {
-                        val fingerprintCheck = it.fingerprintCheck ?: false
                         val fingerprintId = it.fingerprintId ?: 0
                         val fingerprintStatus = it.fingerprintStatus ?: false
 
                         binding.keyIdContentTv.text = fingerprintId.toString()
-                        binding.keyStatusContentTv.text = fingerprintStatus.toString()
+
+                        if (!fingerprintStatus) {
+                            binding.keyStatusContentTv.text = getString(R.string.off_status)
+                            binding.setVehicleStatusBtn.setBackgroundColor(ContextCompat.getColor(this@HomeActivity, R.color.green))
+                            binding.setVehicleStatusBtn.setText(R.string.turn_on)
+
+                            binding.setVehicleStatusBtn.setOnClickListener {
+                                updateVehicleStatus(fingerprintSnapshot.ref, true)
+                            }
+                        } else {
+                            binding.keyStatusContentTv.text = getString(R.string.on_status)
+                            binding.setVehicleStatusBtn.setBackgroundColor(ContextCompat.getColor(this@HomeActivity, R.color.red))
+                            binding.setVehicleStatusBtn.setText(R.string.turn_off)
+
+                            binding.setVehicleStatusBtn.setOnClickListener {
+                                updateVehicleStatus(fingerprintSnapshot.ref, false)
+                            }
+                        }
                     }
                 }
             }
@@ -70,6 +94,27 @@ class HomeActivity : AppCompatActivity() {
                 Log.e("Firebase", "Failed to read the fingerprint.", databaseError.toException())
             }
         })
+    }
+
+    private fun updateVehicleStatus(fingerprintRef: DatabaseReference, newStatus: Boolean) {
+        fingerprintRef.child("fingerprintStatus").setValue(newStatus)
+            .addOnCompleteListener {
+                val message = if (newStatus) R.string.vehicle_turned_on else R.string.vehicle_turned_off
+                Toast.makeText(this@HomeActivity, getString(message), Toast.LENGTH_SHORT).show()
+
+                updateUI(newStatus)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this@HomeActivity, R.string.status_update_failed, Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateUI(newStatus: Boolean) {
+        val colorRes = if (newStatus) R.color.red else R.color.green
+        val buttonTextRes = if (newStatus) R.string.turn_off else R.string.turn_on
+
+        binding.setVehicleStatusBtn.setBackgroundColor(ContextCompat.getColor(this@HomeActivity, colorRes))
+        binding.setVehicleStatusBtn.setText(getString(buttonTextRes))
     }
 
     private fun navigateTo(destination: Class<*>) {

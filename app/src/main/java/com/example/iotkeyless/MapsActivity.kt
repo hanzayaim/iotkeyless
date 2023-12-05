@@ -5,12 +5,14 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.iotkeyless.databinding.ActivityMapsBinding
 import com.example.iotkeyless.model.LocationData
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -52,33 +54,23 @@ class MapsActivity : AppCompatActivity() {
         }
 
         val defaultMarkerLocation = LatLng(-6.201935, 106.781525)
-
-        val defaultMarkerOptions = MarkerOptions().position(defaultMarkerLocation).title("Default Vehicle").snippet("My vehicle is here!")
+        val defaultMarkerOptions = MarkerOptions().position(defaultMarkerLocation)
+            .title("Default Vehicle")
+            .snippet("My vehicle is here!")
         val defaultMarker = googleMap.addMarker(defaultMarkerOptions)
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultMarkerLocation, 12f))
 
-        val defaultLat = defaultMarker!!.position.latitude
-        val defaultLong = defaultMarker!!.position.longitude
-
         googleMap.setOnMarkerClickListener { clickedMarker ->
-            if (clickedMarker.position == defaultMarker.position) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr=$defaultLat,$defaultLong"))
-                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
-                startActivity(intent)
-                true
-            }
-            else {
-                false
-            }
+            onMarkerClick(clickedMarker)
         }
 
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 googleMap.clear()
 
-                for (locationSnapshoot in dataSnapshot.children) {
-                    val locationData = locationSnapshoot.getValue(LocationData::class.java)
+                for (locationSnapshot in dataSnapshot.children) {
+                    val locationData = locationSnapshot.getValue(LocationData::class.java)
                     locationData?.let {
                         val lat = it.lat ?: 0.0
                         val long = it.long ?: 0.0
@@ -87,7 +79,9 @@ class MapsActivity : AppCompatActivity() {
                         binding.latContentTv.text = lat.toString()
                         binding.longContentTv.text = long.toString()
 
-                        val markerOptions = MarkerOptions().position(location).title("My Vehicle").snippet("My vehicle is here!")
+                        val markerOptions = MarkerOptions().position(location)
+                            .title("My Vehicle")
+                            .snippet("My vehicle is here!")
                         googleMap.addMarker(markerOptions)
                     }
                 }
@@ -97,7 +91,28 @@ class MapsActivity : AppCompatActivity() {
                 Log.e("Firebase", "Failed to read the location", databaseError.toException())
             }
         })
+    }
 
+    private fun onMarkerClick(clickedMarker: Marker): Boolean {
+        val clickedLat = clickedMarker.position.latitude
+        val clickedLong = clickedMarker.position.longitude
+
+        val geoUri = Uri.parse("geo:$clickedLat,$clickedLong?q=$clickedLat,$clickedLong(My Vehicle)")
+
+        val mapIntent = Intent(Intent.ACTION_VIEW, geoUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+
+        if (mapIntent.resolveActivity(packageManager) != null) {
+            startActivity(mapIntent)
+        } else {
+            Toast.makeText(this@MapsActivity, "Google Maps app not installed", Toast.LENGTH_SHORT).show()
+        }
+
+        return true
+    }
+
+    companion object {
+        private const val GOOGLE_MAPS_URL = "http://maps.google.com/maps?daddr="
     }
 
     private fun navigateTo(destination: Class<*>) {

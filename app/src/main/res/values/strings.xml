@@ -22,6 +22,13 @@
     <string name="text_vehicle_status">Vehicle Status</string>
     <string name="text_vehicle_status_value">[On/Off]</string>
     <string name="text_set_vehicle_status">Turn [On/Off]</string>
+    <string name="off_status">Off</string>
+    <string name="turn_on">TURN ON</string>
+    <string name="on_status">On</string>
+    <string name="turn_off">TURN OFF</string>
+    <string name="vehicle_turned_on">Vehicle turned on.</string>
+    <string name="vehicle_turned_off">Vehicle turned off.</string>
+    <string name="status_update_failed">Vehicle status update failed.</string>
 
     <string name="text_location">Location</string>
     <string name="text_greeting_location">Your vehicle location</string>
@@ -29,6 +36,13 @@
     <string name="text_latitude_value">12345</string>
     <string name="text_longtitude_name">Longtitude:</string>
     <string name="text_longtitude_value">-12345</string>
+
+    <string name="text_profile">Profile</string>
+    <string name="text_greeting_profile">Your profile</string>
+    <string name="text_profile_email">Email</string>
+    <string name="text_profile_email_content">user@email.com</string>
+    <string name="text_profile_password">Password</string>
+    <string name="text_profile_password_content">user123</string>
 
     <string name="google_map_api_key">AIzaSyDd7RPIjVqWWjeozQFxo-jquXOS2R1IGHM</string>
 </resources>
