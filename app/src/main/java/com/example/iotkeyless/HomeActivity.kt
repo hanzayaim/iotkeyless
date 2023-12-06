@@ -1,10 +1,6 @@
 package com.example.iotkeyless
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var firebaseAuth: FirebaseAuth
     var databaseReference: DatabaseReference? = null
-    private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +59,7 @@ class HomeActivity : AppCompatActivity() {
                     val fingerprintData = fingerprintSnapshot.getValue(FingerprintData::class.java)
 
                     fingerprintData?.let {
+                        val fingerpritnCheck = it.fingerprintCheck ?: false
                         val fingerprintId = it.fingerprintId ?: 0
                         val fingerprintStatus = it.fingerprintStatus ?: false
 
