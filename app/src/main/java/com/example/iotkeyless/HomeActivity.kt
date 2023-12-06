@@ -49,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
             binding.homeGreetingTv.setText("Welcome, Guest")
         }
 
-        binding.setVehicleNameBtn.setText("FreeGo 125")
+        binding.setVehicleNameBtn.setText("FreeGo 125cc")
     }
 
     private fun fetchDataFromFirebase() {
